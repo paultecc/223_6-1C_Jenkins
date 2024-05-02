@@ -23,7 +23,7 @@ pipeline {
             steps {
                 // Build the code using a build automation tool to compile and package your code. You need to specify at least one build automation tool e.g., Maven.
                 echo "fetch the source code from the directory path specified by the environment variable"
-                checkout scm
+                checkout scm //configure in Jenkins
                 echo "compile the code and generate any necessary artifacts" 
                 sh 'mvn clean compile'
             }
@@ -38,7 +38,6 @@ pipeline {
                 sh  'mvn test'
                 junit '**/target/surefire-reports/*.xml' 
 
-                sh 'mvn integration-test'
             }
             post {
                 success {
@@ -65,7 +64,7 @@ pipeline {
         stage('3 Code Quality Check') {
             steps {
                 // integrate a code analysis tool to analyse the code and ensure it meets industry standards. Research and select a tool to analyse your code using  Jenkins.
-                echo "check the quality of the code" 
+                echo "check the quality of the code" // Make sure PMD is set up in Jenkins
 
                 sh 'pmd -d src -R rulesets/java/basic.xml -f xml > pmd_report.xml'
                 pmd canRunOnFailed: true, healthReportAmplificationFactor: 1.0, pattern: 'pmd_report.xml'
@@ -115,6 +114,7 @@ pipeline {
             steps {
                 // run integration tests on the staging environment to ensure the application functions as expected in a production-like environment.
                 echo "run integration tests on the staging environment"
+                sh 'mvn integration-test' 
             }
         }
 
