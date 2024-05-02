@@ -25,7 +25,7 @@ pipeline {
                 echo "fetch the source code from the directory path specified by the environment variable"
                 checkout scm
                 echo "compile the code and generate any necessary artifacts" 
-                sh 'mvn clean comp'
+                sh 'mvn clean compile'
             }
         }
 
@@ -34,7 +34,11 @@ pipeline {
                 // run unit tests to ensure the code functions as expected and run integration tests to ensure the different components
                 // of the application work together as expected. You need to specify test automation tools for this stage
                 echo "unit tests"
-                echo "integration tests" 
+                echo "integration tests"
+                sh  'mvn test'
+                junit '**/target/surefire-reports/*.xml' 
+
+                sh 'mvn integration-test'
             }
             post {
                 success {
