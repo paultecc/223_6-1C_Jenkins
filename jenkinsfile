@@ -66,6 +66,9 @@ pipeline {
             steps {
                 // integrate a code analysis tool to analyse the code and ensure it meets industry standards. Research and select a tool to analyse your code using  Jenkins.
                 echo "check the quality of the code" 
+
+                sh 'pmd -d src -R rulesets/java/basic.xml -f xml > pmd_report.xml'
+                pmd canRunOnFailed: true, healthReportAmplificationFactor: 1.0, pattern: 'pmd_report.xml'
             }
         }
 
@@ -73,6 +76,10 @@ pipeline {
             steps {
                 // perform a security scan on the code using a tool to identify any vulnerabilities. Research and select a tool to scan your code.
                 echo "security scan"
+
+                sh 'dependency-check.sh --project "hello-world" --scan ./ --out ./ --format XML' 
+                dependencyCheckPublisher canRunOnFailed: true, pattern: 'dependency-check-report.xml'  
+                
             }
             post {
                 success {
