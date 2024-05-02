@@ -7,6 +7,10 @@ pipeline {
         PRODUCTION_ENVIRONMENT = 'Paul_Eccarius'
     }
 
+    tools {
+        maven  'Maven'
+    }
+
     stages {
         stage('0 Delay') {
             steps {
@@ -19,7 +23,9 @@ pipeline {
             steps {
                 // Build the code using a build automation tool to compile and package your code. You need to specify at least one build automation tool e.g., Maven.
                 echo "fetch the source code from the directory path specified by the environment variable"
+                checkout scm
                 echo "compile the code and generate any necessary artifacts" 
+                sh 'mvn clean comp'
             }
         }
 
