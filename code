@@ -27,10 +27,28 @@ pipeline {
             steps {
                 // run unit tests to ensure the code functions as expected and run integration tests to ensure the different components
                 // of the application work together as expected. You need to specify test automation tools for this stage
-                // SEND NOTIFICATION EMAIL - The notification emails should include the status of the stage (success or failure), and logs as attachment
-
                 echo "unit tests"
                 echo "integration tests" 
+            }
+            post {
+                success {
+                    emailext (
+                        to: env.NOTIFICATION_EMAIL, // add email to Jenkins environment variables
+                        subject: '223_6-1 Jenkins - ${STAGE_NAME} Stage SUCCESS',
+                        body: '<p>${STAGE_NAME} stage completed successfully, logs attached.</p>',
+                        attachmentsPattern: '**/changed-log.log', // update directory from Jenkins
+                        mimeType: 'text/html'
+                    )
+                }
+                failure {
+                    emailext (
+                        to: env.NOTIFICATION_EMAIL, // add email to Jenkins environment variables
+                        subject: '223_6-1 Jenkins - ${STAGE_NAME} Stage FAILURE',
+                        body: '<p>${STAGE_NAME} stage failed to complete, logs attached.</p>',
+                        attachmentsPattern: '**/changed-log.log', //update directory from Jenkins
+                        mimeType: 'text/html'
+                    )
+                }    
             }
         }
 
@@ -44,8 +62,27 @@ pipeline {
         stage('4 Security Scan') {
             steps {
                 // perform a security scan on the code using a tool to identify any vulnerabilities. Research and select a tool to scan your code.
-                // SEND NOTIFICATION EMAIL- The notification emails should include the status of the stage (success or failure), and logs as attachment
                 echo "security scan"
+            }
+            post {
+                success {
+                    emailext (
+                        to: env.NOTIFICATION_EMAIL, // add email to Jenkins environment variables
+                        subject: '223_6-1 Jenkins - ${STAGE_NAME} Stage SUCCESS',
+                        body: '<p>${STAGE_NAME} stage completed successfully, logs attached.</p>',
+                        attachmentsPattern: '**/changed-log.log', // update directory from Jenkins
+                        mimeType: 'text/html'
+                    )
+                }
+                failure {
+                    emailext (
+                        to: env.NOTIFICATION_EMAIL, // add email to Jenkins environment variables
+                        subject: '223_6-1 Jenkins - ${STAGE_NAME} Stage FAILURE',
+                        body: '<p>${STAGE_NAME} stage failed to complete, logs attached.</p>',
+                        attachmentsPattern: '**/changed-log.log', //update directory from Jenkins
+                        mimeType: 'text/html'
+                    )
+                }    
             }
         }
 
