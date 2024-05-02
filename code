@@ -8,40 +8,64 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('0 Delay') {
             steps {
+                // The job should be triggered with a short delay whenever a new commit is pushed to the GitHub repository
+                sleep 30 
+            }
+        }
+        
+        stage('1 Build') {
+            steps {
+                // Build the code using a build automation tool to compile and package your code. You need to specify at least one build automation tool e.g., Maven.
                 echo "fetch the source code from the directory path specified by the environment variable"
                 echo "compile the code and generate any necessary artifacts" 
             }
         }
 
-        stage('Test') {
+        stage('2 Test') {
             steps {
+                // run unit tests to ensure the code functions as expected and run integration tests to ensure the different components
+                // of the application work together as expected. You need to specify test automation tools for this stage
+                // SEND NOTIFICATION EMAIL - The notification emails should include the status of the stage (success or failure), and logs as attachment
+
                 echo "unit tests"
                 echo "integration tests" 
             }
         }
 
-        stage('Code Quality Check') {
+        stage('3 Code Quality Check') {
             steps {
+                // integrate a code analysis tool to analyse the code and ensure it meets industry standards. Research and select a tool to analyse your code using  Jenkins.
                 echo "check the quality of the code" 
             }
         }
 
-        stage('Deploy') {
+        stage('4 Security Scan') {
             steps {
+                // perform a security scan on the code using a tool to identify any vulnerabilities. Research and select a tool to scan your code.
+                // SEND NOTIFICATION EMAIL- The notification emails should include the status of the stage (success or failure), and logs as attachment
+                echo "security scan"
+            }
+        }
+
+        stage('5 Deploy') {
+            steps {
+                // deploy the application to a staging server (e.g., AWS EC2 instance)
                 echo "deploy the application to a testing environment specified by the environment variable"
             }
         }
 
-        stage('Approval') {
+        stage('6 Integration Test') {
             steps {
-                sleep 10
+                // run integration tests on the staging environment to ensure the application functions as expected in a production-like environment.
+                echo "run integration tests on the staging environment"
             }
         }
 
-        stage('Deploy to Production') {
+        stage('7 Deploy to Production') {
             steps {
+                // Deploy to Production - deploy the application to a production server (e.g., AWS EC2 instance).
                 echo "deploy: ${env.PRODUCTION_ENVIRONMENT}"
             }
         }
