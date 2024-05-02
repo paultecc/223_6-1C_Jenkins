@@ -79,7 +79,7 @@ pipeline {
 
                 sh 'dependency-check.sh --project "hello-world" --scan ./ --out ./ --format XML' 
                 dependencyCheckPublisher canRunOnFailed: true, pattern: 'dependency-check-report.xml'  
-                
+
             }
             post {
                 success {
@@ -107,6 +107,7 @@ pipeline {
             steps {
                 // deploy the application to a staging server (e.g., AWS EC2 instance)
                 echo "deploy the application to a testing environment specified by the environment variable"
+                // EC2 instance details and credential would be entered here (for example)
             }
         }
 
