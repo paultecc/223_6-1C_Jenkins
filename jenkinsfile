@@ -15,7 +15,7 @@ pipeline {
         stage('0 Delay') {
             steps {
                 // The job should be triggered with a short delay whenever a new commit is pushed to the GitHub repository
-                sleep 30 
+                sleep 5
             }
         }
         
