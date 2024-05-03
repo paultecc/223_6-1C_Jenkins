@@ -45,7 +45,7 @@ pipeline {
                         to: env.NOTIFICATION_EMAIL, // add email to Jenkins environment variables
                         subject: '223_6-1 Jenkins - ${STAGE_NAME} Stage SUCCESS',
                         body: '<p>${STAGE_NAME} stage completed successfully, logs attached.</p>',
-                        attachmentsPattern: '**/changed-log.log', // update directory from Jenkins
+                        attachLog: true,
                         mimeType: 'text/html'
                     )
                 }
@@ -54,7 +54,7 @@ pipeline {
                         to: env.NOTIFICATION_EMAIL, // add email to Jenkins environment variables
                         subject: '223_6-1 Jenkins - ${STAGE_NAME} Stage FAILURE',
                         body: '<p>${STAGE_NAME} stage failed to complete, logs attached.</p>',
-                        attachmentsPattern: '**/changed-log.log', //update directory from Jenkins
+                        attachLog: true,
                         mimeType: 'text/html'
                     )
                 }    
@@ -86,7 +86,7 @@ pipeline {
                         to: env.NOTIFICATION_EMAIL, // add email to Jenkins environment variables
                         subject: '223_6-1 Jenkins - ${STAGE_NAME} Stage SUCCESS',
                         body: '<p>${STAGE_NAME} stage completed successfully, logs attached.</p>',
-                        attachmentsPattern: '**/changed-log.log', // update directory from Jenkins
+                        attachLog: true, 
                         mimeType: 'text/html'
                     )
                 }
@@ -95,7 +95,7 @@ pipeline {
                         to: env.NOTIFICATION_EMAIL, // add email to Jenkins environment variables
                         subject: '223_6-1 Jenkins - ${STAGE_NAME} Stage FAILURE',
                         body: '<p>${STAGE_NAME} stage failed to complete, logs attached.</p>',
-                        attachmentsPattern: '**/changed-log.log', //update directory from Jenkins
+                        attachLog: true,
                         mimeType: 'text/html'
                     )
                 }    
